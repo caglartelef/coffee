@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Tea Time</title>
+<title>Coffee Time</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
 <style>
@@ -109,13 +109,14 @@ let S={d:'cay',v:'cam',r:22,n:true,start:null,last:0,lang:'en'},H={day:'',ok:0,c
 function ld(k,f){try{return Object.assign(f,JSON.parse(localStorage.getItem(k)||'{}'))}catch(e){return f}}
 function sv(){try{localStorage.setItem('cz_s',JSON.stringify(S));localStorage.setItem('cz_h',JSON.stringify(H))}catch(e){}}
 S=ld('cz_s',S);H=ld('cz_h',H);
+try{S.lang=localStorage.getItem('cz_lang')||'en'}catch(e){S.lang='en'}
 const day=new Date().toDateString();if(H.day!==day)H={day,ok:0,cold:0};
 const I18={
-en:{title:'Tea Time',lead:"Pour your drink, press start. We'll tell you when it's just right and before it goes cold.",drink:'Drink',vessel:'Vessel',room:'Room temperature',roomnote:'Affects cooling speed',dn:'Decrease room temperature',up:'Increase room temperature',sw:'Notification and sound',start:"I've poured it, start",drank:'I drank it',cancel:'Cancel',warn:'No notification permission, so no sound alert will play. Keep an eye on this screen.',note:'Times are estimates; real temperature depends on the vessel and surroundings. Keep this tab open for alerts.',
+en:{title:'Coffee Time',lead:"Pour your drink, press start. We'll tell you when it's just right and before it goes cold.",drink:'Drink',vessel:'Vessel',room:'Room temperature',roomnote:'Affects cooling speed',dn:'Decrease room temperature',up:'Increase room temperature',sw:'Notification and sound',start:"I've poured it, start",drank:'I drank it',cancel:'Cancel',warn:'No notification permission, so no sound alert will play. Keep an eye on this screen.',note:'Times are estimates; real temperature depends on the vessel and surroundings. Keep this tab open for alerts.',
 d_cay:'Tea',d_cay_s:'starts at 90°',d_kahve:'Filter coffee',d_kahve_s:'starts at 85°',d_ame:'Americano',d_ame_s:'starts at 78°',d_turk:'Turkish coffee',d_turk_s:'starts at 80°',v_cam:'Glass cup',v_cam_s:'cools fast',v_fincan:'Ceramic mug',v_fincan_s:'medium speed',v_termos:'Thermos',v_termos_s:'cools very slowly',
 n0:'Hot',n1:'Ready',n2:'Fading',n3:'Cold',x0:'Still too hot',x1:'Just right, drink now',x2:'Almost cold, drink now',x3:'Gone cold',nx0:'until it is ready',nx1:'until it starts to cool',nx2:'until it is fully cold',next:'Next time, a bit sooner',est:'estimated',
 a1:'Just right, drink now!',a2:'Almost cold, drink now',a3:'It went cold. Next time, a bit sooner!',p_on:'Allowed. You get a sound alert when it is ready and before it cools.',p_den:'Not allowed. Enable notifications in your browser settings.',p_uns:"This browser doesn't support notifications.",p_ask:'Turn on and your browser will ask for permission.',h:'h',min:'min',s_ok:'drunk while hot',s_cold:'went cold'},
-tr:{title:'Çay Zamanı',lead:'İçeceğini koy, başlat. Tam kıvamına gelince ve soğumadan önce haber verelim.',drink:'İçecek',vessel:'Kap',room:'Oda sıcaklığı',roomnote:'Soğuma hızını etkiler',dn:'Oda sıcaklığını azalt',up:'Oda sıcaklığını artır',sw:'Bildirim ve ses',start:'Koydum, başlat',drank:'İçtim',cancel:'Vazgeç',warn:'Bildirim izni yok, sesli uyarı çalmayacak. Bu ekrana bakmaya devam et.',note:'Süreler tahminidir; gerçek sıcaklık kap ve ortama göre değişir. Bildirimler için bu sekme açık kalmalı.',
+tr:{title:'Kahve Zamanı',lead:'İçeceğini koy, başlat. Tam kıvamına gelince ve soğumadan önce haber verelim.',drink:'İçecek',vessel:'Kap',room:'Oda sıcaklığı',roomnote:'Soğuma hızını etkiler',dn:'Oda sıcaklığını azalt',up:'Oda sıcaklığını artır',sw:'Bildirim ve ses',start:'Koydum, başlat',drank:'İçtim',cancel:'Vazgeç',warn:'Bildirim izni yok, sesli uyarı çalmayacak. Bu ekrana bakmaya devam et.',note:'Süreler tahminidir; gerçek sıcaklık kap ve ortama göre değişir. Bildirimler için bu sekme açık kalmalı.',
 d_cay:'Çay',d_cay_s:'90° başlar',d_kahve:'Filtre kahve',d_kahve_s:'85° başlar',d_ame:'Americano',d_ame_s:'78° başlar',d_turk:'Türk kahvesi',d_turk_s:'80° başlar',v_cam:'Cam bardak',v_cam_s:'hızlı soğur',v_fincan:'Seramik fincan',v_fincan_s:'orta hızda',v_termos:'Termos',v_termos_s:'çok yavaş soğur',
 n0:'Sıcak',n1:'Kıvamında',n2:'Üzere',n3:'Soğudu',x0:'Henüz çok sıcak',x1:'Tam kıvamında, şimdi iç',x2:'Soğumak üzere, hemen iç',x3:'Soğudu',nx0:'kıvama gelmesine',nx1:'soğumaya başlamasına',nx2:'tamamen soğumasına',next:'Bir dahaki sefere daha erken',est:'tahmini',
 a1:'Tam kıvamında, şimdi iç!',a2:'Soğumak üzere, hemen iç',a3:'Soğudu. Bir dahaki sefere daha erken!',p_on:'İzin verildi. Kıvamında ve soğumadan önce sesli uyarı gelir.',p_den:'İzin verilmedi. Tarayıcı ayarlarından bildirimlere izin ver.',p_uns:'Bu tarayıcı bildirimleri desteklemiyor.',p_ask:'Açtığında tarayıcı izin isteyecek.',h:'sa',min:'dk',s_ok:'sıcakken içildi',s_cold:'soğudu'}};
@@ -196,9 +197,10 @@ function applyLang(){
  document.querySelectorAll('[data-ia]').forEach(e=>e.setAttribute('aria-label',t(e.dataset.ia)));
  document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===S.lang));
  group('#gd',DR,'d');group('#gv',VS,'v');paint();stats();
- if(S.start)tick();else document.title=t('title');
+ document.title=t('title');
+ if(S.start)tick();
 }
-document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;sv();applyLang()});
+document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;sv();try{localStorage.setItem('cz_lang',S.lang)}catch(e){}applyLang()});
 applyLang();
 show(!!S.start);
 </script>
