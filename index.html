@@ -13,7 +13,7 @@ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:en
 :root[data-theme="dark"]{--bg:#0D1822;--surf:#15242F;--ink:#E8F0F5;--mut:#8EA3B3;--line:#2A3E4C;--hot:#E4694F;--ok:#3FB88F;--warn:#E3A13D;--cold:#6C97C8;--on:#0D1822;--sh:none}
 *{box-sizing:border-box}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh;min-height:100dvh;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .app{max-width:460px;margin:0 auto;padding:28px 20px 0}
 .screen{animation:in .25s ease-out}
 @keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
@@ -112,14 +112,14 @@ S=ld('cz_s',S);H=ld('cz_h',H);
 try{S.lang=localStorage.getItem('cz_lang')||'en'}catch(e){S.lang='en'}
 const day=new Date().toDateString();if(H.day!==day)H={day,ok:0,cold:0};
 const I18={
-en:{title:'Coffee Time',lead:"Pour your drink, press start. We'll tell you when it's just right and before it goes cold.",drink:'Drink',vessel:'Vessel',room:'Room temperature',roomnote:'Affects cooling speed',dn:'Decrease room temperature',up:'Increase room temperature',sw:'Notification and sound',start:"I've poured it, start",drank:'I drank it',cancel:'Cancel',warn:'No notification permission, so no sound alert will play. Keep an eye on this screen.',note:'Times are estimates; real temperature depends on the vessel and surroundings. Keep this tab open for alerts.',
+en:{title:'Coffee Time',lead:"Pour your drink, press start. We'll tell you when it's just right and before it goes cold.",drink:'Drink',vessel:'Vessel',room:'Room temperature',roomnote:'Affects cooling speed',dn:'Decrease room temperature',up:'Increase room temperature',sw:'Notification and sound',start:"I've poured it, start",drank:'I drank it',cancel:'Cancel',warn:'Alerts are off, so nothing will sound. Keep an eye on this screen.',note:'Times are estimates; real temperature depends on the vessel and surroundings. Keep this tab open for alerts.',
 d_cay:'Tea',d_cay_s:'starts at 90°',d_kahve:'Filter coffee',d_kahve_s:'starts at 85°',d_ame:'Americano',d_ame_s:'starts at 78°',d_turk:'Turkish coffee',d_turk_s:'starts at 80°',v_cam:'Glass cup',v_cam_s:'cools fast',v_fincan:'Ceramic mug',v_fincan_s:'medium speed',v_termos:'Thermos',v_termos_s:'cools very slowly',
 n0:'Hot',n1:'Ready',n2:'Fading',n3:'Cold',x0:'Still too hot',x1:'Just right, drink now',x2:'Almost cold, drink now',x3:'Gone cold',nx0:'until it is ready',nx1:'until it starts to cool',nx2:'until it is fully cold',next:'Next time, a bit sooner',est:'estimated',
-a1:'Just right, drink now!',a2:'Almost cold, drink now',a3:'It went cold. Next time, a bit sooner!',p_on:'Allowed. You get a sound alert when it is ready and before it cools.',p_den:'Not allowed. Enable notifications in your browser settings.',p_uns:"This browser doesn't support notifications.",p_ask:'Turn on and your browser will ask for permission.',h:'h',min:'min',s_ok:'drunk while hot',s_cold:'went cold'},
-tr:{title:'Kahve Zamanı',lead:'İçeceğini koy, başlat. Tam kıvamına gelince ve soğumadan önce haber verelim.',drink:'İçecek',vessel:'Kap',room:'Oda sıcaklığı',roomnote:'Soğuma hızını etkiler',dn:'Oda sıcaklığını azalt',up:'Oda sıcaklığını artır',sw:'Bildirim ve ses',start:'Koydum, başlat',drank:'İçtim',cancel:'Vazgeç',warn:'Bildirim izni yok, sesli uyarı çalmayacak. Bu ekrana bakmaya devam et.',note:'Süreler tahminidir; gerçek sıcaklık kap ve ortama göre değişir. Bildirimler için bu sekme açık kalmalı.',
+a1:'Just right, drink now!',a2:'Almost cold, drink now',a3:'It went cold. Next time, a bit sooner!',p_on:'On. Sound and vibration alerts are active, and system notifications are allowed.',p_off:'Off',p_den:'Notifications are blocked in this browser. Sound and vibration alerts still work.',p_uns:"System notifications aren't available here. Sound and vibration alerts still work.",p_ask:'On. Your browser may ask for notification permission.',h:'h',min:'min',s_ok:'drunk while hot',s_cold:'went cold'},
+tr:{title:'Kahve Zamanı',lead:'İçeceğini koy, başlat. Tam kıvamına gelince ve soğumadan önce haber verelim.',drink:'İçecek',vessel:'Kap',room:'Oda sıcaklığı',roomnote:'Soğuma hızını etkiler',dn:'Oda sıcaklığını azalt',up:'Oda sıcaklığını artır',sw:'Bildirim ve ses',start:'Koydum, başlat',drank:'İçtim',cancel:'Vazgeç',warn:'Uyarılar kapalı, ses çalmayacak. Bu ekrana bakmaya devam et.',note:'Süreler tahminidir; gerçek sıcaklık kap ve ortama göre değişir. Bildirimler için bu sekme açık kalmalı.',
 d_cay:'Çay',d_cay_s:'90° başlar',d_kahve:'Filtre kahve',d_kahve_s:'85° başlar',d_ame:'Americano',d_ame_s:'78° başlar',d_turk:'Türk kahvesi',d_turk_s:'80° başlar',v_cam:'Cam bardak',v_cam_s:'hızlı soğur',v_fincan:'Seramik fincan',v_fincan_s:'orta hızda',v_termos:'Termos',v_termos_s:'çok yavaş soğur',
 n0:'Sıcak',n1:'Kıvamında',n2:'Üzere',n3:'Soğudu',x0:'Henüz çok sıcak',x1:'Tam kıvamında, şimdi iç',x2:'Soğumak üzere, hemen iç',x3:'Soğudu',nx0:'kıvama gelmesine',nx1:'soğumaya başlamasına',nx2:'tamamen soğumasına',next:'Bir dahaki sefere daha erken',est:'tahmini',
-a1:'Tam kıvamında, şimdi iç!',a2:'Soğumak üzere, hemen iç',a3:'Soğudu. Bir dahaki sefere daha erken!',p_on:'İzin verildi. Kıvamında ve soğumadan önce sesli uyarı gelir.',p_den:'İzin verilmedi. Tarayıcı ayarlarından bildirimlere izin ver.',p_uns:'Bu tarayıcı bildirimleri desteklemiyor.',p_ask:'Açtığında tarayıcı izin isteyecek.',h:'sa',min:'dk',s_ok:'sıcakken içildi',s_cold:'soğudu'}};
+a1:'Tam kıvamında, şimdi iç!',a2:'Soğumak üzere, hemen iç',a3:'Soğudu. Bir dahaki sefere daha erken!',p_on:'Açık. Sesli ve titreşimli uyarılar etkin, sistem bildirimlerine izin verildi.',p_off:'Kapalı',p_den:'Bildirimler bu tarayıcıda engelli. Ses ve titreşim uyarıları yine çalışır.',p_uns:'Sistem bildirimleri burada kullanılamıyor. Ses ve titreşim uyarıları yine çalışır.',p_ask:'Açık. Tarayıcı bildirim izni isteyebilir.',h:'sa',min:'dk',s_ok:'sıcakken içildi',s_cold:'soğudu'}};
 if(!I18[S.lang])S.lang='en';
 const t=k=>I18[S.lang][k];
 function stats(){$('#stats').innerHTML=`<div><b>${H.ok}</b><span>${t('s_ok')}</span></div><div><b>${H.cold}</b><span>${t('s_cold')}</span></div>`}
@@ -136,11 +136,11 @@ $('#dn').onclick=()=>room(-1);$('#up').onclick=()=>room(1);room(0);
 const perm=()=>window.Notification?Notification.permission:'unsupported';
 async function ask(){if(perm()==='default'){try{await Notification.requestPermission()}catch(e){}}return perm()==='granted'}
 function paint(){
- const p=perm(),on=S.n&&p==='granted';
+ const p=perm(),on=S.n;
  $('#nt').checked=on;
- $('#ns').textContent=t(on?'p_on':p==='denied'?'p_den':p==='unsupported'?'p_uns':'p_ask');
+ $('#ns').textContent=t(!on?'p_off':p==='granted'?'p_on':p==='denied'?'p_den':p==='unsupported'?'p_uns':'p_ask');
 }
-$('#nt').onchange=async e=>{S.n=e.target.checked?await ask():false;sv();paint()};
+$('#nt').onchange=async e=>{S.n=e.target.checked;if(S.n)await ask();sv();paint()};
 
 const kk=()=>VS[S.v].k*DR[S.d].m;
 const temp=t=>S.r+(DR[S.d].t-S.r)*Math.exp(-kk()*t);
@@ -149,25 +149,33 @@ const stage=T=>T>LIM[0]?0:T>LIM[1]?1:T>LIM[2]?2:3;
 const clock=t=>isFinite(t)?new Date(S.start+t*60000).toLocaleTimeString(S.lang==='tr'?'tr-TR':'en-GB',{hour:'2-digit',minute:'2-digit'}):'';
 function cd(m){if(!isFinite(m))return '—';if(m<60){const s=Math.max(0,Math.round(m*60));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}return Math.floor(m/60)+' '+t('h')+' '+Math.round(m%60)+' '+t('min')}
 
+async function notify(msg){
+ const o={body:msg,tag:'ct',renotify:true,silent:document.visibilityState==='visible'};
+ try{const r=navigator.serviceWorker&&await navigator.serviceWorker.getRegistration();if(r){await r.showNotification(t('title'),o);return}}catch(e){}
+ try{new Notification(t('title'),o)}catch(e){}
+}
+let wl=null;
+async function lock(){try{if(S.start&&'wakeLock' in navigator&&!wl){wl=await navigator.wakeLock.request('screen');wl.addEventListener('release',()=>{wl=null})}}catch(e){}}
+function unlock(){try{wl&&wl.release()}catch(e){}wl=null}
 function alertUser(st){
  const msg=['',t('a1'),t('a2'),t('a3')][st];
  document.title=(st===3?'':'☕ ')+msg;
- if(!S.n||perm()!=='granted')return;
+ if(!S.n)return;
  try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){}
  const tones={1:[660,880],2:[520,520],3:[440,330]}[st];
- try{if(ctx){ctx.resume&&ctx.resume();tones.forEach((f,i)=>{const o=ctx.createOscillator(),g=ctx.createGain(),a=ctx.currentTime+i*.35;o.connect(g);g.connect(ctx.destination);o.frequency.value=f;g.gain.setValueAtTime(.25,a);g.gain.exponentialRampToValueAtTime(.001,a+.3);o.start(a);o.stop(a+.3)})}}catch(e){}
- try{new Notification(t('title'),{body:msg,silent:true})}catch(e){}
+ try{if(ctx){if(ctx.state==='suspended')ctx.resume();tones.forEach((f,i)=>{const o=ctx.createOscillator(),g=ctx.createGain(),a=ctx.currentTime+i*.35;o.connect(g);g.connect(ctx.destination);o.frequency.value=f;g.gain.setValueAtTime(.25,a);g.gain.exponentialRampToValueAtTime(.001,a+.3);o.start(a);o.stop(a+.3)})}}catch(e){}
+ if(perm()==='granted')notify(msg);
 }
 
 function tick(){
- const t=(Date.now()-S.start)/60000,T=temp(t),st=stage(T);
+ const el=(Date.now()-S.start)/60000,T=temp(el),st=stage(T);
  $('#run').style.setProperty('--st',`var(${ST[st].c})`);
  $('#chip span').textContent=t('x'+st);
  $('#tmp').textContent=Math.round(T)+'° '+t('est');
  const f=Math.max(0,Math.min(1,(T-S.r)/(DR[S.d].t-S.r)));
  $('#arc').setAttribute('stroke-dashoffset',C*(1-f));
  const big=$('#big');
- if(st<3){$('#cap').textContent=t('nx'+st);big.textContent=cd(timeTo(LIM[st])-t);big.className='big'}
+ if(st<3){$('#cap').textContent=t('nx'+st);big.textContent=cd(timeTo(LIM[st])-el);big.className='big'}
  else{$('#cap').textContent=t('next');big.textContent=t('n3');big.className='big sm'}
  const starts=[0,timeTo(LIM[0]),timeTo(LIM[1]),timeTo(LIM[2])];
  $('#track').innerHTML=ST.map((s,i)=>`<li class="seg ${i<st?'past':i===st?'now':''}" style="--c:var(${s.c})"><b></b><span>${t('n'+i)}</span><small>${clock(starts[i])}</small></li>`).join('');
@@ -176,20 +184,22 @@ function tick(){
 
 function show(running){
  $('#setup').hidden=running;$('#run').hidden=!running;paint();
- $('#warn').hidden=!running||(S.n&&perm()==='granted');
+ $('#warn').hidden=!running||S.n;
  clearInterval(timer);
- if(running){tick();timer=setInterval(tick,1000)}else document.title=t('title');
+ if(running){tick();timer=setInterval(tick,1000);lock()}else unlock();
+ if(false){}else document.title=t('title');
  stats();
  window.scrollTo(0,0);
 }
 $('#start').onclick=async()=>{
  try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)()}catch(e){}
- if(perm()==='default'){S.n=await ask()}
+ if(S.n&&perm()==='default')await ask();
  S.start=Date.now();S.last=0;sv();show(true);
 };
 $('#drank').onclick=()=>{const st=stage(temp((Date.now()-S.start)/60000));st<3?H.ok++:H.cold++;S.start=null;sv();show(false)};
 $('#cancel').onclick=()=>{S.start=null;sv();show(false)};
-document.addEventListener('visibilitychange',()=>{if(S.start&&!document.hidden)tick()});
+document.addEventListener('visibilitychange',()=>{if(S.start&&!document.hidden){tick();lock();if(ctx&&ctx.state==='suspended')ctx.resume()}});
+try{navigator.serviceWorker&&navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}
 if(S.start){try{ctx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}
 function applyLang(){
  document.documentElement.lang=S.lang;
