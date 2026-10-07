@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tea Time</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EAEFF2;--surf:#F8FAFB;--ink:#12283A;--mut:#5A6E7E;--line:#CBD6DD;--hot:#C4452E;--ok:#238060;--warn:#B87415;--cold:#3F6C9E;--on:#fff;--sh:0 1px 2px rgba(18,40,58,.08);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D1822;--surf:#15242F;--ink:#E8F0F5;--mut:#8EA3B3;--line:#2A3E4C;--hot:#E4694F;--ok:#3FB88F;--warn:#E3A13D;--cold:#6C97C8;--on:#0D1822;--sh:none}}
+:root[data-theme="dark"]{--bg:#0D1822;--surf:#15242F;--ink:#E8F0F5;--mut:#8EA3B3;--line:#2A3E4C;--hot:#E4694F;--ok:#3FB88F;--warn:#E3A13D;--cold:#6C97C8;--on:#0D1822;--sh:none}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+.app{max-width:460px;margin:0 auto;padding:28px 20px 0}
+.screen{animation:in .25s ease-out}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h1{font-size:2.1rem;font-weight:800;letter-spacing:-.025em;line-height:1.05;margin:0 0 8px}
+.lead{color:var(--mut);margin:0 0 26px;max-width:36ch}
+.lbl{font-size:.95rem;font-weight:600;margin:0 0 10px;display:block}
+.sec{margin-bottom:26px}
+.opts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+#gd{grid-template-columns:repeat(2,1fr)}
+.opt{display:flex;flex-direction:column;gap:2px;text-align:left;padding:12px;min-height:64px;border:1.5px solid var(--line);border-radius:12px;background:var(--surf);color:var(--ink);font:inherit;cursor:pointer;box-shadow:var(--sh)}
+.opt b{font-weight:600;line-height:1.2}
+.opt small{color:var(--mut);font-size:.78rem;line-height:1.25}
+.opt[aria-checked="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.step{display:flex;align-items:center;gap:14px}
+.step button{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--line);background:var(--surf);color:var(--ink);font:inherit;font-size:1.4rem;cursor:pointer}
+.step output{min-width:4ch;text-align:center;font-size:1.6rem;font-weight:800}
+.step span{color:var(--mut);font-size:.85rem}
+.sw{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;border-top:1.5px solid var(--line);border-bottom:1.5px solid var(--line);margin-bottom:22px;cursor:pointer}
+.sw small{display:block;color:var(--mut);font-size:.82rem}
+.sw input{appearance:none;flex:none;width:50px;height:30px;border-radius:15px;background:var(--line);position:relative;cursor:pointer;transition:background .2s;margin:0}
+.sw input::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:transform .2s}
+.sw input:checked{background:var(--ok)}.sw input:checked::after{transform:translateX(20px)}
+.stats{display:flex;gap:28px;margin-bottom:16px}
+.stats b{display:block;font-size:1.8rem;font-weight:800;line-height:1}
+.stats span{color:var(--mut);font-size:.82rem}
+.cta{position:sticky;bottom:0;margin:0 -20px;padding:14px 20px calc(18px + env(safe-area-inset-bottom,0px));background:linear-gradient(transparent,var(--bg) 30%)}
+.btn{display:block;width:100%;min-height:54px;padding:14px;border:0;border-radius:14px;font:inherit;font-size:1.05rem;font-weight:800;cursor:pointer}
+.btn.p{background:var(--ink);color:var(--bg)}
+.btn.g{background:var(--ok);color:var(--on)}
+.btn.t{background:none;color:var(--mut);font-weight:600;min-height:44px;margin-top:4px}
+button:focus-visible,input:focus-visible{outline:3px solid var(--cold);outline-offset:2px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 10px;border-radius:99px;background:var(--surf);border:1.5px solid var(--st);font-weight:600;font-size:.92rem;box-shadow:var(--sh)}
+.chip i{width:10px;height:10px;border-radius:50%;background:var(--st)}
+.ringw{position:relative;width:min(290px,78vw);margin:22px auto 8px}
+.ringw svg{display:block;width:100%;transform:rotate(-90deg)}
+.ringw circle{fill:none;stroke-width:10;stroke-linecap:round}
+.tr{stroke:var(--line)}
+#arc{stroke:var(--st);transition:stroke-dashoffset 1s linear,stroke .5s}
+.mid{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:0 28px}
+.mid .cap{color:var(--mut);font-size:.85rem;line-height:1.25}
+.mid .big{font-size:3.1rem;font-weight:800;letter-spacing:-.03em;line-height:1.15;font-variant-numeric:tabular-nums}
+.mid .big.sm{font-size:2.2rem}
+.mid .tmp{color:var(--st);font-weight:600}
+.track{list-style:none;margin:24px 0 8px;padding:0;display:flex;gap:6px}
+.seg{flex:1;min-width:0}
+.seg b{display:block;height:6px;border-radius:3px;background:var(--line);margin-bottom:8px}
+.seg.past b,.seg.now b{background:var(--c)}
+.seg span{display:block;font-size:.82rem;color:var(--mut);line-height:1.2}
+.seg small{display:block;font-size:.76rem;color:var(--mut);font-variant-numeric:tabular-nums}
+.seg.now span{color:var(--ink);font-weight:800}
+.note{color:var(--mut);font-size:.8rem;margin:8px 0 24px}
+.lang{display:flex;justify-content:flex-end;gap:4px;margin-bottom:12px}.lang button{min-width:44px;min-height:34px;border:1.5px solid var(--line);border-radius:8px;background:var(--surf);color:var(--mut);font:inherit;font-size:.82rem;font-weight:600;cursor:pointer}.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){.screen{animation:none}#arc,.sw input,.sw input::after{transition:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="lang" role="group" aria-label="Language"><button data-l="en">EN</button><button data-l="tr">TR</button></div>
+
+<main id="setup" class="screen">
+<h1 data-i="title"></h1>
+<p class="lead" data-i="lead"></p>
+<div class="sec"><span class="lbl" id="l1" data-i="drink"></span><div class="opts" id="gd" role="radiogroup" aria-labelledby="l1"></div></div>
+<div class="sec"><span class="lbl" id="l2" data-i="vessel"></span><div class="opts" id="gv" role="radiogroup" aria-labelledby="l2"></div></div>
+<div class="sec"><span class="lbl" data-i="room"></span>
+<div class="step"><button id="dn" data-ia="dn">−</button><output id="rv" aria-live="polite">22°</output><button id="up" data-ia="up">+</button><span data-i="roomnote"></span></div></div>
+<label class="sw"><span><span data-i="sw"></span><small id="ns"></small></span><input type="checkbox" role="switch" id="nt"></label>
+<div class="stats" id="stats"></div>
+<div class="cta"><button class="btn p" id="start" data-i="start"></button></div>
+</main>
+
+<main id="run" class="screen" hidden>
+<div style="text-align:center;padding-top:6px"><span class="chip" id="chip" aria-live="polite"><i></i><span></span></span></div>
+<div class="ringw">
+<svg viewBox="0 0 200 200" aria-hidden="true"><circle class="tr" cx="100" cy="100" r="90"/><circle id="arc" cx="100" cy="100" r="90" stroke-dasharray="565.5" stroke-dashoffset="0"/></svg>
+<div class="mid"><div class="cap" id="cap"></div><div class="big" id="big"></div><div class="tmp" id="tmp"></div></div>
+</div>
+<ol class="track" id="track"></ol>
+<p class="note" id="warn" hidden data-i="warn"></p>
+<p class="note" data-i="note"></p>
+<div class="cta"><button class="btn g" id="drank" data-i="drank"></button><button class="btn t" id="cancel" data-i="cancel"></button></div>
+</main>
+
+</div>
+<script>
+const DR={cay:{t:90,m:1},kahve:{t:85,m:1},ame:{t:78,m:1},turk:{t:80,m:1.4}};
+const VS={cam:{k:.06},fincan:{k:.045},termos:{k:.008}};
+const ST=[{c:'--hot'},{c:'--ok'},{c:'--warn'},{c:'--cold'}];
+const LIM=[68,52,45],C=565.5;
+const $=s=>document.querySelector(s);
+let S={d:'cay',v:'cam',r:22,n:true,start:null,last:0,lang:'en'},H={day:'',ok:0,cold:0},ctx=null,timer=null;
+function ld(k,f){try{return Object.assign(f,JSON.parse(localStorage.getItem(k)||'{}'))}catch(e){return f}}
+function sv(){try{localStorage.setItem('cz_s',JSON.stringify(S));localStorage.setItem('cz_h',JSON.stringify(H))}catch(e){}}
+S=ld('cz_s',S);H=ld('cz_h',H);
+const day=new Date().toDateString();if(H.day!==day)H={day,ok:0,cold:0};
+const I18={
+en:{title:'Tea Time',lead:"Pour your drink, press start. We'll tell you when it's just right and before it goes cold.",drink:'Drink',vessel:'Vessel',room:'Room temperature',roomnote:'Affects cooling speed',dn:'Decrease room temperature',up:'Increase room temperature',sw:'Notification and sound',start:"I've poured it, start",drank:'I drank it',cancel:'Cancel',warn:'No notification permission, so no sound alert will play. Keep an eye on this screen.',note:'Times are estimates; real temperature depends on the vessel and surroundings. Keep this tab open for alerts.',
+d_cay:'Tea',d_cay_s:'starts at 90°',d_kahve:'Filter coffee',d_kahve_s:'starts at 85°',d_ame:'Americano',d_ame_s:'starts at 78°',d_turk:'Turkish coffee',d_turk_s:'starts at 80°',v_cam:'Glass cup',v_cam_s:'cools fast',v_fincan:'Ceramic mug',v_fincan_s:'medium speed',v_termos:'Thermos',v_termos_s:'cools very slowly',
+n0:'Hot',n1:'Ready',n2:'Fading',n3:'Cold',x0:'Still too hot',x1:'Just right, drink now',x2:'Almost cold, drink now',x3:'Gone cold',nx0:'until it is ready',nx1:'until it starts to cool',nx2:'until it is fully cold',next:'Next time, a bit sooner',est:'estimated',
+a1:'Just right, drink now!',a2:'Almost cold, drink now',a3:'It went cold. Next time, a bit sooner!',p_on:'Allowed. You get a sound alert when it is ready and before it cools.',p_den:'Not allowed. Enable notifications in your browser settings.',p_uns:"This browser doesn't support notifications.",p_ask:'Turn on and your browser will ask for permission.',h:'h',min:'min',s_ok:'drunk while hot',s_cold:'went cold'},
+tr:{title:'Çay Zamanı',lead:'İçeceğini koy, başlat. Tam kıvamına gelince ve soğumadan önce haber verelim.',drink:'İçecek',vessel:'Kap',room:'Oda sıcaklığı',roomnote:'Soğuma hızını etkiler',dn:'Oda sıcaklığını azalt',up:'Oda sıcaklığını artır',sw:'Bildirim ve ses',start:'Koydum, başlat',drank:'İçtim',cancel:'Vazgeç',warn:'Bildirim izni yok, sesli uyarı çalmayacak. Bu ekrana bakmaya devam et.',note:'Süreler tahminidir; gerçek sıcaklık kap ve ortama göre değişir. Bildirimler için bu sekme açık kalmalı.',
+d_cay:'Çay',d_cay_s:'90° başlar',d_kahve:'Filtre kahve',d_kahve_s:'85° başlar',d_ame:'Americano',d_ame_s:'78° başlar',d_turk:'Türk kahvesi',d_turk_s:'80° başlar',v_cam:'Cam bardak',v_cam_s:'hızlı soğur',v_fincan:'Seramik fincan',v_fincan_s:'orta hızda',v_termos:'Termos',v_termos_s:'çok yavaş soğur',
+n0:'Sıcak',n1:'Kıvamında',n2:'Üzere',n3:'Soğudu',x0:'Henüz çok sıcak',x1:'Tam kıvamında, şimdi iç',x2:'Soğumak üzere, hemen iç',x3:'Soğudu',nx0:'kıvama gelmesine',nx1:'soğumaya başlamasına',nx2:'tamamen soğumasına',next:'Bir dahaki sefere daha erken',est:'tahmini',
+a1:'Tam kıvamında, şimdi iç!',a2:'Soğumak üzere, hemen iç',a3:'Soğudu. Bir dahaki sefere daha erken!',p_on:'İzin verildi. Kıvamında ve soğumadan önce sesli uyarı gelir.',p_den:'İzin verilmedi. Tarayıcı ayarlarından bildirimlere izin ver.',p_uns:'Bu tarayıcı bildirimleri desteklemiyor.',p_ask:'Açtığında tarayıcı izin isteyecek.',h:'sa',min:'dk',s_ok:'sıcakken içildi',s_cold:'soğudu'}};
+if(!I18[S.lang])S.lang='en';
+const t=k=>I18[S.lang][k];
+function stats(){$('#stats').innerHTML=`<div><b>${H.ok}</b><span>${t('s_ok')}</span></div><div><b>${H.cold}</b><span>${t('s_cold')}</span></div>`}
+
+function group(id,obj,key){
+ const el=$(id);el.innerHTML='';
+ for(const k in obj){const b=document.createElement('button');b.className='opt';b.setAttribute('role','radio');b.setAttribute('aria-checked',S[key]===k);
+  b.innerHTML=`<b>${t(key+'_'+k)}</b><small>${t(key+'_'+k+'_s')}</small>`;
+  b.onclick=()=>{S[key]=k;[...el.children].forEach(c=>c.setAttribute('aria-checked',c===b));sv()};el.appendChild(b)}
+}
+group('#gd',DR,'d');group('#gv',VS,'v');
+function room(d){S.r=Math.max(10,Math.min(32,S.r+d));$('#rv').textContent=S.r+'°';sv()}
+$('#dn').onclick=()=>room(-1);$('#up').onclick=()=>room(1);room(0);
+const perm=()=>window.Notification?Notification.permission:'unsupported';
+async function ask(){if(perm()==='default'){try{await Notification.requestPermission()}catch(e){}}return perm()==='granted'}
+function paint(){
+ const p=perm(),on=S.n&&p==='granted';
+ $('#nt').checked=on;
+ $('#ns').textContent=t(on?'p_on':p==='denied'?'p_den':p==='unsupported'?'p_uns':'p_ask');
+}
+$('#nt').onchange=async e=>{S.n=e.target.checked?await ask():false;sv();paint()};
+
+const kk=()=>VS[S.v].k*DR[S.d].m;
+const temp=t=>S.r+(DR[S.d].t-S.r)*Math.exp(-kk()*t);
+const timeTo=x=>x<=S.r?Infinity:-Math.log((x-S.r)/(DR[S.d].t-S.r))/kk();
+const stage=T=>T>LIM[0]?0:T>LIM[1]?1:T>LIM[2]?2:3;
+const clock=t=>isFinite(t)?new Date(S.start+t*60000).toLocaleTimeString(S.lang==='tr'?'tr-TR':'en-GB',{hour:'2-digit',minute:'2-digit'}):'';
+function cd(m){if(!isFinite(m))return '—';if(m<60){const s=Math.max(0,Math.round(m*60));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}return Math.floor(m/60)+' '+t('h')+' '+Math.round(m%60)+' '+t('min')}
+
+function alertUser(st){
+ const msg=['',t('a1'),t('a2'),t('a3')][st];
+ document.title=(st===3?'':'☕ ')+msg;
+ if(!S.n||perm()!=='granted')return;
+ try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){}
+ const tones={1:[660,880],2:[520,520],3:[440,330]}[st];
+ try{if(ctx){ctx.resume&&ctx.resume();tones.forEach((f,i)=>{const o=ctx.createOscillator(),g=ctx.createGain(),a=ctx.currentTime+i*.35;o.connect(g);g.connect(ctx.destination);o.frequency.value=f;g.gain.setValueAtTime(.25,a);g.gain.exponentialRampToValueAtTime(.001,a+.3);o.start(a);o.stop(a+.3)})}}catch(e){}
+ try{new Notification(t('title'),{body:msg,silent:true})}catch(e){}
+}
+
+function tick(){
+ const t=(Date.now()-S.start)/60000,T=temp(t),st=stage(T);
+ $('#run').style.setProperty('--st',`var(${ST[st].c})`);
+ $('#chip span').textContent=t('x'+st);
+ $('#tmp').textContent=Math.round(T)+'° '+t('est');
+ const f=Math.max(0,Math.min(1,(T-S.r)/(DR[S.d].t-S.r)));
+ $('#arc').setAttribute('stroke-dashoffset',C*(1-f));
+ const big=$('#big');
+ if(st<3){$('#cap').textContent=t('nx'+st);big.textContent=cd(timeTo(LIM[st])-t);big.className='big'}
+ else{$('#cap').textContent=t('next');big.textContent=t('n3');big.className='big sm'}
+ const starts=[0,timeTo(LIM[0]),timeTo(LIM[1]),timeTo(LIM[2])];
+ $('#track').innerHTML=ST.map((s,i)=>`<li class="seg ${i<st?'past':i===st?'now':''}" style="--c:var(${s.c})"><b></b><span>${t('n'+i)}</span><small>${clock(starts[i])}</small></li>`).join('');
+ if(st>S.last){S.last=st;sv();alertUser(st)}
+}
+
+function show(running){
+ $('#setup').hidden=running;$('#run').hidden=!running;paint();
+ $('#warn').hidden=!running||(S.n&&perm()==='granted');
+ clearInterval(timer);
+ if(running){tick();timer=setInterval(tick,1000)}else document.title=t('title');
+ stats();
+ window.scrollTo(0,0);
+}
+$('#start').onclick=async()=>{
+ try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)()}catch(e){}
+ if(perm()==='default'){S.n=await ask()}
+ S.start=Date.now();S.last=0;sv();show(true);
+};
+$('#drank').onclick=()=>{const st=stage(temp((Date.now()-S.start)/60000));st<3?H.ok++:H.cold++;S.start=null;sv();show(false)};
+$('#cancel').onclick=()=>{S.start=null;sv();show(false)};
+document.addEventListener('visibilitychange',()=>{if(S.start&&!document.hidden)tick()});
+if(S.start){try{ctx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}
+function applyLang(){
+ document.documentElement.lang=S.lang;
+ document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));
+ document.querySelectorAll('[data-ia]').forEach(e=>e.setAttribute('aria-label',t(e.dataset.ia)));
+ document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===S.lang));
+ group('#gd',DR,'d');group('#gv',VS,'v');paint();stats();
+ if(S.start)tick();else document.title=t('title');
+}
+document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;sv();applyLang()});
+applyLang();
+show(!!S.start);
+</script>
+</body>
+</html>
